@@ -389,16 +389,21 @@
 
         div.className = 'card';
 
-        div.innerHTML = `
-    
-    <img src="${p.imagens[0]}">
+        const imagemPrincipal =
+          p.imagens && p.imagens.length > 0
+            ? p.imagens[0]
+            : 'https://via.placeholder.com/300x300?text=Sem+Imagem';
 
-    <div class="card-content">
-      <h3>${p.nome}</h3>
-      <p class="price">R$ ${p.preco}</p>
-    </div>
-    
-    `;
+        div.innerHTML = `
+
+<img src="${imagemPrincipal}">
+
+<div class="card-content">
+  <h3>${p.nome}</h3>
+  <p class="price">R$ ${p.preco}</p>
+</div>
+
+`;
 
         div.addEventListener(
           'click',
@@ -461,7 +466,11 @@
         .innerText = produtoAtual.descricao || '';
 
       document.getElementById('imgPrincipal')
-        .src = produtoAtual.imagens[0];
+        .src =
+        produtoAtual.imagens &&
+          produtoAtual.imagens.length > 0
+          ? produtoAtual.imagens[0]
+          : 'https://via.placeholder.com/300x300?text=Sem+Imagem';
 
       /* GALERIA */
 
@@ -691,6 +700,7 @@
       let cores = coresTexto
         .split(',')
         .map(cor => cor.trim());
+        console.log(imagens);
 
       await addDoc(
 

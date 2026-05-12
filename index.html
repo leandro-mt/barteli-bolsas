@@ -15,15 +15,32 @@
       margin: 0;
       font-family: Arial, sans-serif;
       background: #f3eee9;
+      scroll-behavior: smooth;
     }
 
     header {
       background: #5a3e36;
       color: white;
       text-align: center;
-      padding: 20px;
+      padding: 60px 20px;
       font-family: 'Playfair Display';
+      background: linear-gradient(135deg, #5a3e36, #3d2a24);
+
+
+
     }
+
+    header h1 {
+      font-size: 52px;
+      margin: 10px 0;
+    }
+
+    header p {
+      letter-spacing: 2px;
+      opacity: 0.9;
+    }
+
+
 
     .container {
       max-width: 1200px;
@@ -48,6 +65,7 @@
 
     .card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
     }
 
     .card img {
@@ -58,6 +76,15 @@
 
     .card-content {
       padding: 15px;
+    }
+
+    .card-content h3 {
+      margin: 0;
+      color: #5a3e36;
+    }
+
+    .card-content {
+      padding: 18px;
     }
 
     .price {
@@ -160,6 +187,8 @@
       cursor: pointer;
       z-index: 1000;
       font-size: 18px;
+      opacity: 0.5;
+      transition: 0.3s;
     }
 
     #painelAdmin {
@@ -211,12 +240,19 @@
     .remover-btn {
       background: red !important;
     }
-    .logo{
-  width: 180px;
-  max-width: 90%;
-  margin-bottom: 10px;
-   }
-    
+
+    .logo {
+      width: 160px;
+      max-width: 90%;
+      margin-bottom: 15px;
+      border-radius: 24px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+      transition: 0.3s;
+    }
+
+    .logo:hover {
+      transform: scale(1.03);
+    }
   </style>
 </head>
 
@@ -224,13 +260,13 @@
 
   <header>
 
-  <img src="logo.png" class="logo">
+    <img src="logo.png" class="logo">
 
-  <h1>Barteli Bolsas</h1>
+    <h1>Barteli Bolsas</h1>
 
-  <p>Elegância em cada detalhe</p>
+    <p>Elegância em cada detalhe</p>
 
-</header>
+  </header>
 
   <div class="container">
     <div class="grid" id="lista"></div>
@@ -507,34 +543,36 @@
 
       /* CORES */
 
-      const coresDiv =
-        document.getElementById('cores');
+     /* CORES */
 
-      coresDiv.innerHTML = '';
+const coresDiv =
+  document.getElementById('cores');
 
-      if (produtoAtual.cores) {
+coresDiv.innerHTML = '';
 
-        produtoAtual.cores.forEach((cor, index) => {
+if (produtoAtual.cores) {
 
-          const bolinha =
-            document.createElement('button');
+  produtoAtual.cores.forEach((cor, index) => {
 
-          bolinha.className =
-            'color-btn';
+    const bolinha =
+      document.createElement('button');
 
-          bolinha.style.background =
-            cor;
+    bolinha.className =
+      'color-btn';
 
-          bolinha.onclick =
-            () => trocarImagem(index);
+    bolinha.style.background =
+      cor;
 
-          coresDiv.appendChild(bolinha);
+    bolinha.onclick =
+      () => trocarImagem(index);
 
-        });
+    coresDiv.appendChild(bolinha);
 
-      }
+  });
 
-    }
+}}
+
+
 
     function trocarImagem(index) {
 
@@ -555,7 +593,7 @@
     function comprar() {
 
       const msg =
-        `Olá! Quero comprar: ${produtoAtual.nome}`;
+        `Olá! Tenho interesse na bolsa: ${produtoAtual.nome} 😊`;
 
       const url =
         `https://wa.me/559492664045?text=${encodeURIComponent(msg)}`;
@@ -586,7 +624,7 @@
         document.getElementById('senhaAdmin')
           .value;
 
-      if (senha === '1234') {
+      if (senha === 'Barteli2026@') {
 
         document.getElementById('conteudoAdmin')
           .style.display = 'block';
@@ -684,6 +722,7 @@
         return;
 
       }
+      alert('Enviando imagens...');
 
       let imagens = [];
 
@@ -710,9 +749,9 @@
       }
 
       let cores = coresTexto
-        .split(',')
-        .map(cor => cor.trim());
-        console.log(imagens);
+        ? coresTexto.split(',').map(cor => cor.trim())
+        : [];
+      console.log(imagens);
 
       await addDoc(
 

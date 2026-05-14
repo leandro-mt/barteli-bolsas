@@ -18,6 +18,41 @@
       scroll-behavior: smooth;
     }
 
+    .banner {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* CELULAR */
+
+    @media (max-width: 768px) {
+
+      .banner {
+        height: 220px;
+      }
+
+    }
+
     header {
       background: #5a3e36;
       color: white;
@@ -65,7 +100,7 @@
 
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
     }
 
     .card img {
@@ -253,6 +288,56 @@
     .logo:hover {
       transform: scale(1.03);
     }
+
+    /* FOOTER */
+
+    footer {
+      background: linear-gradient(135deg, #3d2a24, #5a3e36);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 50px;
+    }
+
+    .footer-logo {
+      width: 90px;
+      border-radius: 18px;
+      margin-bottom: 15px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    }
+
+    footer h2 {
+      margin: 10px 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+    }
+
+    footer p {
+      opacity: 0.9;
+      margin: 8px 0;
+    }
+
+    .footer-links {
+      margin-top: 18px;
+    }
+
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 12px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      opacity: 0.7;
+    }
+
+    .copy {
+      margin-top: 25px;
+      font-size: 14px;
+      opacity: 0.7;
+    }
   </style>
 </head>
 
@@ -267,6 +352,21 @@
     <p>Elegância em cada detalhe</p>
 
   </header>
+  <section class="banner">
+
+    <div class="slide active">
+      <img src="banner1.png">
+    </div>
+
+    <div class="slide">
+      <img src="banner2.png">
+    </div>
+
+    <div class="slide">
+      <img src="banner3.png">
+    </div>
+
+  </section>
 
   <div class="container">
     <div class="grid" id="lista"></div>
@@ -543,34 +643,35 @@
 
       /* CORES */
 
-     /* CORES */
+      /* CORES */
 
-const coresDiv =
-  document.getElementById('cores');
+      const coresDiv =
+        document.getElementById('cores');
 
-coresDiv.innerHTML = '';
+      coresDiv.innerHTML = '';
 
-if (produtoAtual.cores) {
+      if (produtoAtual.cores) {
 
-  produtoAtual.cores.forEach((cor, index) => {
+        produtoAtual.cores.forEach((cor, index) => {
 
-    const bolinha =
-      document.createElement('button');
+          const bolinha =
+            document.createElement('button');
 
-    bolinha.className =
-      'color-btn';
+          bolinha.className =
+            'color-btn';
 
-    bolinha.style.background =
-      cor;
+          bolinha.style.background =
+            cor;
 
-    bolinha.onclick =
-      () => trocarImagem(index);
+          bolinha.onclick =
+            () => trocarImagem(index);
 
-    coresDiv.appendChild(bolinha);
+          coresDiv.appendChild(bolinha);
 
-  });
+        });
 
-}}
+      }
+    }
 
 
 
@@ -913,7 +1014,61 @@ if (produtoAtual.cores) {
     window.fecharModal = fecharModal;
     window.comprar = comprar;
 
+    /* BANNER ROTATIVO */
+
+    const slides =
+      document.querySelectorAll('.slide');
+
+    let slideAtual = 0;
+
+    function trocarSlide() {
+
+      slides[slideAtual]
+        .classList.remove('active');
+
+      slideAtual++;
+
+      if (slideAtual >= slides.length) {
+        slideAtual = 0;
+      }
+
+      slides[slideAtual]
+        .classList.add('active');
+
+    }
+
+    setInterval(trocarSlide, 4000);
+
   </script>
+  <!-- FOOTER -->
+
+  <footer>
+
+    <img src="logo.png" class="footer-logo">
+
+    <h2>Barteli Bolsas</h2>
+
+    <p>
+      Elegância em cada detalhe ✨
+    </p>
+
+    <div class="footer-links">
+
+      <a href="https://wa.me/559492664045" target="_blank">
+        WhatsApp
+      </a>
+
+      <a href="https://www.instagram.com/bartelibolsas/" target="_blank">
+        Instagram
+      </a>
+
+    </div>
+
+    <p class="copy">
+      © 2026 Barteli Bolsas — Todos os direitos reservados
+    </p>
+
+  </footer>
 
 </body>
 

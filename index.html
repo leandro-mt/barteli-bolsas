@@ -46,6 +46,45 @@
       object-fit: cover;
     }
 
+    /* BUSCA */
+
+    .busca-box {
+      display: flex;
+      justify-content: center;
+      margin: 25px 20px;
+    }
+
+    .busca-box input {
+
+      width: 100%;
+      max-width: 420px;
+
+      padding: 15px 20px;
+
+      border-radius: 40px;
+
+      border: 2px solid #d8c3a5;
+
+      outline: none;
+
+      font-size: 16px;
+
+      background: white;
+
+      transition: 0.3s;
+
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+
+    }
+
+    .busca-box input:focus {
+
+      border-color: #5a3e36;
+
+      box-shadow: 0 6px 18px rgba(90, 62, 54, 0.15);
+
+    }
+
     /* CELULAR */
 
     @media (max-width: 768px) {
@@ -217,6 +256,51 @@
       color: #555;
     }
 
+    /* BOTÃO TOPO */
+
+    #topoBtn {
+
+      position: fixed;
+
+      bottom: 25px;
+      left: 25px;
+
+      width: 52px;
+      height: 52px;
+
+      border: none;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(135deg,
+          #5a3e36,
+          #7b5649);
+
+      color: white;
+
+      font-size: 22px;
+
+      cursor: pointer;
+
+      display: none;
+
+      z-index: 999;
+
+      box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.2);
+
+      transition: 0.3s;
+
+    }
+
+    #topoBtn:hover {
+
+      transform:
+        translateY(-5px);
+
+    }
+
     /* ADMIN */
 
     #abrirAdmin {
@@ -304,6 +388,196 @@
       transform: scale(1.03);
     }
 
+    .linha-luxo {
+      width: 90px;
+      height: 3px;
+      background: linear-gradient(to right, #c8a97e, #5a3e36);
+      margin: 15px auto;
+      border-radius: 10px;
+    }
+
+    .logo-loading {
+
+      width: 120px;
+
+      border-radius: 30px;
+
+      animation:
+        pulse 1.5s infinite;
+
+    }
+
+    @keyframes pulse {
+
+      0% {
+        transform: scale(1);
+        opacity: 0.9;
+      }
+
+      50% {
+        transform: scale(1.08);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 0.9;
+      }
+
+    }
+
+    /* SKELETON */
+
+    .skeleton-card {
+
+      background: white;
+
+      border-radius: 22px;
+
+      overflow: hidden;
+
+      animation: pulseSkeleton 1.5s infinite;
+
+    }
+
+    .skeleton-img {
+
+      width: 100%;
+
+      height: 260px;
+
+      background: #ddd;
+
+    }
+
+    .skeleton-content {
+
+      padding: 18px;
+
+    }
+
+    .skeleton-line {
+
+      height: 14px;
+
+      border-radius: 8px;
+
+      background: #ddd;
+
+      margin-bottom: 12px;
+
+    }
+
+    .skeleton-line.small {
+
+      width: 40%;
+
+    }
+
+    @keyframes pulseSkeleton {
+
+      0% {
+        opacity: 0.6;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0.6;
+      }
+
+    }
+
+    /* LOADING */
+
+    #loading {
+
+      position: fixed;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+
+      background:
+        linear-gradient(135deg,
+          #f3eee9,
+          #fffaf7);
+
+      display: flex;
+
+      justify-content: center;
+      align-items: center;
+
+      z-index: 999999;
+
+      transition: 0.6s;
+
+    }
+
+    .loader-box {
+
+      text-align: center;
+
+    }
+
+    .loader {
+
+      width: 75px;
+      height: 75px;
+
+      border:
+        5px solid #d8c3a5;
+
+      border-top:
+        5px solid #5a3e36;
+
+      border-radius: 50%;
+
+      animation:
+        girar 1s linear infinite;
+
+      margin: auto;
+
+    }
+
+    .loader-box h2 {
+
+      margin-top: 22px;
+
+      color: #5a3e36;
+
+      font-size: 34px;
+
+      font-family:
+        'Playfair Display',
+        serif;
+
+    }
+
+    .loader-box p {
+
+      color: #777;
+
+      margin-top: 8px;
+
+      letter-spacing: 1px;
+
+    }
+
+    @keyframes girar {
+
+      100% {
+
+        transform: rotate(360deg);
+
+      }
+
+    }
+
     /* FOOTER */
 
     footer {
@@ -356,7 +630,8 @@
 
     .titulo-secao {
       text-align: center;
-      margin-bottom: 35px;
+      padding: 25px 15px;
+      margin-bottom: 10px;
     }
 
     .titulo-secao h2 {
@@ -372,14 +647,16 @@
 
     .frase-loja {
       text-align: center;
-      padding: 25px;
+      padding: 18px 15px;
       background: #fffaf7;
     }
 
     .frase-loja h2 {
       color: #5a3e36;
       font-family: 'Playfair Display', serif;
-      font-size: 30px;
+      font-size: 34px;
+      letter-spacing: 1px;
+      margin: 0;
     }
 
     /* FILTROS */
@@ -452,6 +729,20 @@
 
 <body>
 
+  <div id="loading">
+
+    <div class="loader-box">
+
+      <img src="logo.png" class="logo-loading">
+
+      <h2>Barteli Bolsas</h2>
+
+      <p>Carregando coleção...</p>
+
+    </div>
+
+  </div>
+
   <header>
     <img src="logo.png" class="logo">
   </header>
@@ -473,6 +764,13 @@
     </div>
 
   </section>
+  <!-- BUSCA -->
+
+  <div class="busca-box">
+
+    <input type="text" id="campoBusca" placeholder="Buscar produtos..." onkeyup="buscarProdutos()">
+
+  </div>
 
   <!-- FILTROS -->
 
@@ -506,6 +804,7 @@
 
   <div class="titulo-secao">
     <h2>Nossas Bolsas</h2>
+    <div class="linha-luxo"></div>
     <p>Modelos elegantes para todos os estilos</p>
   </div>
 
@@ -720,11 +1019,41 @@
       });
 
     }
+    function mostrarSkeleton() {
+
+      lista.innerHTML = '';
+
+      for (let i = 0; i < 6; i++) {
+
+        const div =
+          document.createElement('div');
+
+        div.className = 'skeleton-card';
+
+        div.innerHTML = `
+
+      <div class="skeleton-img"></div>
+
+      <div class="skeleton-content">
+
+        <div class="skeleton-line"></div>
+
+        <div class="skeleton-line small"></div>
+
+      </div>
+
+    `;
+
+        lista.appendChild(div);
+
+      }
+
+    }
 
     /* CARREGAR */
 
     async function carregarProdutos() {
-
+      mostrarSkeleton();
       produtos = [];
 
       const querySnapshot =
@@ -1212,6 +1541,83 @@
     }
 
     setInterval(trocarSlide, 4000);
+    window.onload = () => {
+
+      setTimeout(() => {
+
+        const loading =
+          document.getElementById('loading');
+
+        loading.style.opacity = '0';
+
+        loading.style.display = 'none';
+
+      }, 1200);
+
+    };
+    function buscarProdutos() {
+
+      const termo =
+        document.getElementById('campoBusca')
+          .value
+          .toLowerCase();
+
+      const cards =
+        document.querySelectorAll('.card');
+
+      cards.forEach(card => {
+
+        const nome =
+          card.querySelector('h3')
+            .innerText
+            .toLowerCase();
+
+        if (nome.includes(termo)) {
+
+          card.style.display = 'block';
+
+        } else {
+
+          card.style.display = 'none';
+
+        }
+
+      });
+
+    }
+
+    window.buscarProdutos = buscarProdutos;
+
+    const topoBtn =
+      document.getElementById('topoBtn');
+
+    window.addEventListener('scroll', () => {
+
+      if (window.scrollY > 300) {
+
+        topoBtn.style.display = 'block';
+
+      } else {
+
+        topoBtn.style.display = 'none';
+
+      }
+
+    });
+
+    function voltarTopo() {
+
+      window.scrollTo({
+
+        top: 0,
+
+        behavior: 'smooth'
+
+      });
+
+    }
+
+    window.voltarTopo = voltarTopo;
 
 
 
@@ -1247,6 +1653,10 @@
     </p>
 
   </footer>
+
+  <button id="topoBtn" onclick="voltarTopo()">
+    ↑
+  </button>
 
 </body>
 

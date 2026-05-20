@@ -453,7 +453,7 @@
 <body>
 
   <header>
-    <img src="logo.png" class="logo"  >
+    <img src="logo.png" class="logo">
   </header>
 
   <!-- BANNER -->
@@ -712,7 +712,7 @@
 
         div.addEventListener(
           'click',
-          () => abrirModal(index)
+          () => abrirModal(p)
         );
 
         lista.appendChild(div);
@@ -754,9 +754,9 @@
 
     /* MODAL */
 
-    function abrirModal(index) {
+    function abrirModal(produto) {
 
-      produtoAtual = produtos[index];
+      produtoAtual = produto;
 
       document.getElementById('modal')
         .style.display = 'flex';
@@ -770,7 +770,6 @@
       document.getElementById('descricao')
         .innerText = produtoAtual.descricao || '';
 
-
       document.getElementById('imgPrincipal')
         .src =
         produtoAtual.imagens &&
@@ -778,14 +777,13 @@
           ? produtoAtual.imagens[0]
           : 'https://via.placeholder.com/300x300?text=Sem+Imagem';
 
-      /* GALERIA */
-
       const galeria =
         document.getElementById('galeria');
 
       galeria.innerHTML = '';
 
       (produtoAtual.imagens || []).forEach((img, index) => {
+
         const thumb =
           document.createElement('img');
 
@@ -797,10 +795,6 @@
         galeria.appendChild(thumb);
 
       });
-
-      /* CORES */
-
-      /* CORES */
 
       const coresDiv =
         document.getElementById('cores');
@@ -828,6 +822,7 @@
         });
 
       }
+
     }
 
 

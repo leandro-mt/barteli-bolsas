@@ -2,13 +2,27 @@
 <html lang="pt-BR">
 
 <head>
+  <meta name="description" content="Barteli Bolsas - Bolsas femininas elegantes e exclusivas.">
+
+  <meta name="keywords" content="bolsa feminina, mochila, bolsa premium, barteli bolsas">
+
+  <meta property="og:title" content="Barteli Bolsas">
+
+  <meta property="og:description" content="Elegância em cada detalhe">
+
+  <meta property="og:image" content="https://seudominio.com/logo.png">
+  <meta property="og:type" content="website">
   <meta charset="UTF-8">
+  <meta name="theme-color" content="#5a3e36">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="favicon-180.png">
 
-  <title>Barteli Bolsas</title>
+  <title>Barteli Bolsas | Bolsas Femininas Elegantes e Exclusivas</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <style>
     body {
@@ -16,6 +30,17 @@
       font-family: Arial, sans-serif;
       background: #f3eee9;
       scroll-behavior: smooth;
+    }
+
+    #imgPrincipal {
+      cursor: zoom-in;
+      transition: .4s;
+    }
+
+    #imgPrincipal:hover {
+
+      transform: scale(1.03);
+
     }
 
     .banner {
@@ -44,6 +69,28 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    .categoria {
+
+      display: inline-block;
+
+      padding: 6px 12px;
+
+      margin-bottom: 10px;
+
+      background: #f3eee9;
+
+      color: #5a3e36;
+
+      border-radius: 20px;
+
+      font-size: 12px;
+
+      font-weight: bold;
+
+      border: 1px solid #d8c3a5;
+
     }
 
     /* BUSCA */
@@ -96,12 +143,22 @@
     }
 
     header {
-      background: #5a3e36;
+
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      background: rgba(90, 62, 54, 0.85);
+
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+
       color: white;
       text-align: center;
       padding: 15px 20px;
+
       font-family: 'Playfair Display';
-      background: linear-gradient(135deg, #5a3e36, #3d2a24);
+
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
 
     }
@@ -140,6 +197,55 @@
       transition: 0.35s;
     }
 
+    .diferenciais {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+
+      gap: 15px;
+
+      padding: 30px;
+
+      text-align: center;
+
+    }
+
+    .diferenciais div {
+
+      background: white;
+
+      padding: 20px;
+
+      border-radius: 18px;
+
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+
+    }
+
+    .admin-stats {
+
+      background: linear-gradient(135deg,
+          #5a3e36,
+          #7b5649);
+
+      color: white;
+
+      padding: 15px;
+
+      border-radius: 15px;
+
+      text-align: center;
+
+      font-size: 18px;
+
+      margin-bottom: 15px;
+
+      box-shadow: 0 5px 15px rgba(0, 0, 0, .15);
+
+    }
+
     .card:hover {
       transform: translateY(-8px) scale(1.01);
       box-shadow: 0 18px 35px rgba(0, 0, 0, 0.18);
@@ -147,13 +253,11 @@
 
     .card img {
       width: 100%;
-      height: 260px;
+      height: 320px;
       object-fit: cover;
     }
 
-    .card-content {
-      padding: 15px;
-    }
+
 
     .card-content h3 {
       margin: 0;
@@ -170,6 +274,32 @@
       font-size: 18px;
     }
 
+    .avaliacoes {
+
+      padding: 50px 20px;
+
+      background: white;
+
+      text-align: center;
+
+    }
+
+    .avaliacao {
+
+      max-width: 500px;
+
+      margin: 20px auto;
+
+      padding: 20px;
+
+      background: #fffaf7;
+
+      border-radius: 20px;
+
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+
+    }
+
     /* MODAL */
 
     .modal {
@@ -182,8 +312,9 @@
       background: rgba(0, 0, 0, 0.7);
       justify-content: center;
       align-items: center;
-      z-index: 999;
+      z-index: 9999;
     }
+
 
     .modal-content {
       background: #fffaf7;
@@ -194,6 +325,31 @@
       max-height: 90vh;
       overflow-y: auto;
     }
+
+    .badge {
+
+      position: absolute;
+
+      top: 15px;
+      left: 15px;
+
+      background: #5a3e36;
+
+      color: white;
+
+      padding: 6px 12px;
+
+      border-radius: 20px;
+
+      font-size: 12px;
+
+      font-weight: bold;
+
+      z-index: 2;
+
+    }
+
+
 
     .modal img {
       width: 100%;
@@ -301,6 +457,34 @@
 
     }
 
+    #zoomModal {
+
+      display: none;
+
+      position: fixed;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+
+      background: rgba(0, 0, 0, .9);
+
+      justify-content: center;
+      align-items: center;
+
+      z-index: 99999;
+
+    }
+
+    #zoomImg {
+
+      max-width: 90%;
+      max-height: 90%;
+
+    }
+
     /* ADMIN */
 
     #abrirAdmin {
@@ -326,17 +510,48 @@
     }
 
     #painelAdmin {
+
       display: none;
+
       position: fixed;
-      top: 0;
-      right: 0;
-      width: 320px;
-      height: 100%;
+
+      top: 50%;
+      left: 50%;
+
+      transform:
+        translate(-50%, -50%);
+
+      width: 90%;
+
+      max-width: 700px;
+
+      height: 85vh;
+
       background: white;
-      padding: 20px;
-      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+
+      border-radius: 25px;
+
+      padding: 25px;
+
       overflow-y: auto;
-      z-index: 2000;
+
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, .25);
+
+      z-index: 9999;
+
+    }
+
+    .admin-header {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      margin-bottom: 20px;
+
     }
 
     #painelAdmin input,
@@ -426,6 +641,18 @@
 
     }
 
+    .card img {
+
+      transition: 0.4s;
+
+    }
+
+    .card:hover img {
+
+      transform: scale(1.06);
+
+    }
+
     /* SKELETON */
 
     .skeleton-card {
@@ -437,6 +664,7 @@
       overflow: hidden;
 
       animation: pulseSkeleton 1.5s infinite;
+      will-change: transform;
 
     }
 
@@ -689,7 +917,10 @@
     /* ANIMAÇÃO DOS CARDS */
 
     .card {
-      animation: aparecer 0.5s ease;
+
+      animation:
+        aparecer 0.7s ease;
+
     }
 
     @keyframes aparecer {
@@ -752,15 +983,15 @@
   <section class="banner">
 
     <div class="slide active">
-      <img src="banner1.png">
+      <img src="banner1.png" alt="Coleção Barteli Bolsas" loading="eager" decoding="async">
     </div>
 
     <div class="slide">
-      <img src="banner2.png">
+      <img src="banner2.png" loading="lazy" decoding="async">
     </div>
 
     <div class="slide">
-      <img src="banner3.png">
+      <img src="banner3.png" loading="lazy" decoding="async">
     </div>
 
   </section>
@@ -771,6 +1002,7 @@
     <input type="text" id="campoBusca" placeholder="Buscar produtos..." onkeyup="buscarProdutos()">
 
   </div>
+
 
   <!-- FILTROS -->
 
@@ -787,6 +1019,17 @@
     <button class="filtro-btn" onclick="filtrarCategoria('Mochila', this)">
       Mochilas
     </button>
+    <button class="filtro-btn" onclick="filtrarCategoria('Necessaire', this)">
+      Nécessaires
+    </button>
+
+    <button class="filtro-btn" onclick="filtrarCategoria('Bolsa Maternidade', this)">
+      Maternidade
+    </button>
+
+    <button class="filtro-btn" onclick="filtrarCategoria('Frasqueira', this)">
+      Frasqueiras
+    </button>
 
     <button class="filtro-btn" onclick="filtrarCategoria('Novidades', this)">
       Novidades
@@ -798,6 +1041,17 @@
 
   <section class="frase-loja">
     <h2>✨ Coleção Exclusiva Barteli</h2>
+  </section>
+  <section class="diferenciais">
+
+    <div>🚚 Enviamos para todo Brasil</div>
+
+    <div>👜 Produção artesanal</div>
+
+    <div>✨ Acabamento premium</div>
+
+    <div>💬 Atendimento personalizado</div>
+
   </section>
 
   <!-- TÍTULO -->
@@ -821,6 +1075,10 @@
     <div class="modal-content" onclick="event.stopPropagation()">
 
       <img id="imgPrincipal">
+      <div id="zoomModal" class="modal">
+        <img id="zoomImg">
+      </div>
+
 
       <div class="gallery" id="galeria"></div>
 
@@ -832,13 +1090,17 @@
 
       <p id="descricao"></p>
 
-      <a class="btn" onclick="comprar()">
-        Comprar no WhatsApp
+      <a href="#" class="btn" onclick="comprar()">
+        💬 Comprar pelo WhatsApp
       </a>
 
     </div>
 
   </div>
+
+
+
+  <!-- PAINEL ADMIN -->
 
   <!-- BOTÃO ADMIN -->
 
@@ -848,19 +1110,21 @@
 
   <!-- PAINEL ADMIN -->
 
-  <div id="painelAdmin">
+  <div id="painelAdmin" style="display:none;">
 
-    <h2>Painel Admin</h2>
-
-    <button onclick="fecharPainel()" style="background:red;margin-bottom:15px;">
-      Fechar
-    </button>
+    <h2>👜 Painel Barteli</h2>
 
     <input type="password" id="senhaAdmin" placeholder="Senha">
 
     <button onclick="entrarAdmin()">
       Entrar
     </button>
+
+    <button onclick="fecharPainel()">
+      Fechar
+    </button>
+
+    <!-- CONTEÚDO ADMIN -->
 
     <div id="conteudoAdmin" style="display:none;">
 
@@ -870,10 +1134,27 @@
 
       <input type="text" id="novoNome" placeholder="Nome do produto">
 
-      <input type="text" id="novoPreco" placeholder="Preço">
-      <input type="text" id="novaCategoria" placeholder="Categoria (Bolsa, Mochila...)">
+      <input type="number" id="novoPreco" step="0.01">
 
-      <textarea id="novaDescricao" placeholder="Descrição" style="height:90px;"></textarea>
+      <select id="novaCategoria">
+
+        <option value="Bolsa">Bolsa</option>
+        <option value="Mochila">Mochila</option>
+        <option value="Necessaire">Necessaire</option>
+        <option value="Bolsa Maternidade">
+          Bolsa Maternidade
+        </option>
+        <option value="Frasqueira">
+          Frasqueira
+        </option>
+        <option value="Mochila">
+          Mochila
+        </option>
+
+      </select>
+
+      <textarea id="novaDescricao" placeholder="Descrição" style="height:90px;">
+    </textarea>
 
       <input type="file" id="novaImagem" accept="image/*" multiple>
 
@@ -885,7 +1166,34 @@
 
       <hr>
 
+      <h3>Avaliações</h3>
+
+      <input type="text" id="nomeCliente" placeholder="Nome Cliente">
+
+      <textarea id="textoAvaliacao" placeholder="Avaliação">
+    </textarea>
+
+      <button onclick="adicionarAvaliacao()">
+        Adicionar Avaliação
+      </button>
+
+      <hr>
+
       <h3>Produtos cadastrados</h3>
+
+      <div class="admin-stats">
+
+        <strong>
+          📦 Produtos cadastrados:
+        </strong>
+
+        <span id="totalProdutos">
+          0
+        </span>
+
+      </div>
+
+      <br>
 
       <div id="listaAdmin"></div>
 
@@ -996,18 +1304,38 @@
         const imagemPrincipal =
           p.imagens && p.imagens.length > 0
             ? p.imagens[0]
-            : 'https://via.placeholder.com/300x300?text=Sem+Imagem';
-
+            : 'logo.png';
         div.innerHTML = `
 
-<img src="${imagemPrincipal}">
+${p.novo ? '<div class="badge">NOVO</div>' : ''}
+
+<img
+ src="${imagemPrincipal}"
+ loading="lazy"
+ decoding="async">
 
 <div class="card-content">
+
+  <div class="categoria">
+    ${p.categoria === 'Bolsa' ? '👜 Bolsa' :
+            p.categoria === 'Mochila' ? '🎒 Mochila' :
+              p.categoria === 'Necessaire' ? '👝 Nécessaire' :
+                p.categoria === 'Bolsa Maternidade' ? '👶 Maternidade' :
+                  p.categoria === 'Frasqueira' ? '🧳 Frasqueira' :
+                    '✨ Produto'}
+  </div>
+
   <h3>${p.nome}</h3>
-  <p class="price">R$ ${p.preco}</p>
+
+  <p class="price">
+    R$ ${Number(p.preco).toFixed(2)}
+  </p>
+
 </div>
 
 `;
+
+
 
         div.addEventListener(
           'click',
@@ -1018,7 +1346,9 @@
 
       });
 
+
     }
+
     function mostrarSkeleton() {
 
       lista.innerHTML = '';
@@ -1053,29 +1383,38 @@
     /* CARREGAR */
 
     async function carregarProdutos() {
-      mostrarSkeleton();
-      produtos = [];
 
-      const querySnapshot =
-        await getDocs(
-          collection(db, 'produtos')
-        );
+      try {
 
-      querySnapshot.forEach((docItem) => {
+        mostrarSkeleton();
 
-        produtos.push({
+        produtos = [];
 
-          id: docItem.id,
+        const querySnapshot =
+          await getDocs(collection(db, 'produtos'));
 
-          ...docItem.data()
+        querySnapshot.forEach(docItem => {
+
+          produtos.push({
+            id: docItem.id,
+            ...docItem.data()
+          });
 
         });
 
-      });
+        renderizarProdutos();
 
-      renderizarProdutos();
+        atualizarListaAdmin();
 
-      atualizarListaAdmin();
+      } catch (error) {
+
+        console.error(error);
+
+        lista.innerHTML = `
+      <p>Erro ao carregar produtos.</p>
+    `;
+
+      }
 
     }
 
@@ -1094,7 +1433,14 @@
         .innerText = produtoAtual.nome;
 
       document.getElementById('preco')
-        .innerText = 'R$ ' + produtoAtual.preco;
+        .innerText = 'R$ ' +
+        Number(produtoAtual.preco)
+          .toLocaleString(
+            'pt-BR',
+            {
+              minimumFractionDigits: 2
+            }
+          );
 
       document.getElementById('descricao')
         .innerText = produtoAtual.descricao || '';
@@ -1105,6 +1451,10 @@
           produtoAtual.imagens.length > 0
           ? produtoAtual.imagens[0]
           : 'https://via.placeholder.com/300x300?text=Sem+Imagem';
+
+
+
+
 
       const galeria =
         document.getElementById('galeria');
@@ -1175,7 +1525,16 @@
     function comprar() {
 
       const msg =
-        `Olá! Tenho interesse na bolsa: ${produtoAtual.nome} 😊`;
+
+        `Olá! 😊
+
+Tenho interesse neste produto:
+
+👜 Produto: ${produtoAtual.nome}
+
+💰 Preço: R$ ${produtoAtual.preco}
+
+Gostaria de mais informações.`;
 
       const url =
         `https://wa.me/559492664045?text=${encodeURIComponent(msg)}`;
@@ -1221,6 +1580,7 @@
 
     }
 
+
     /* LISTA ADMIN */
 
     function atualizarListaAdmin() {
@@ -1229,6 +1589,9 @@
         document.getElementById('listaAdmin');
 
       listaAdmin.innerHTML = '';
+      document
+        .getElementById("totalProdutos")
+        .innerText = produtos.length;
 
       produtos.forEach((p, index) => {
 
@@ -1344,7 +1707,7 @@
         {
 
           nome: nome,
-          preco: preco,
+          preco: Number(preco),
           descricao: descricao,
           categoria: categoria,
           imagens: imagens,
@@ -1392,7 +1755,7 @@
         const storageRef =
           ref(
             storage,
-            'produtos/' + Date.now() + arquivo.name
+            `produtos/${Date.now()}_${arquivo.name}`
           );
 
         await uploadBytes(
@@ -1557,30 +1920,40 @@
     };
     function buscarProdutos() {
 
-      const termo =
-        document.getElementById('campoBusca')
-          .value
-          .toLowerCase();
+      const termo = document
+        .getElementById('campoBusca')
+        .value
+        .toLowerCase();
 
-      const cards =
-        document.querySelectorAll('.card');
+      lista.innerHTML = '';
 
-      cards.forEach(card => {
+      const filtrados = produtos.filter(p =>
 
-        const nome =
-          card.querySelector('h3')
-            .innerText
-            .toLowerCase();
+        (p.nome || '').toLowerCase().includes(termo) ||
 
-        if (nome.includes(termo)) {
+        (p.descricao || '').toLowerCase().includes(termo) ||
 
-          card.style.display = 'block';
+        (p.categoria || '').toLowerCase().includes(termo)
 
-        } else {
+      );
 
-          card.style.display = 'none';
+      filtrados.forEach(p => {
 
-        }
+        const div = document.createElement('div');
+
+        div.className = 'card';
+
+        div.innerHTML = `
+      <img src="${p.imagens[0]}">
+      <div class="card-content">
+        <h3>${p.nome}</h3>
+        <p class="price">R$ ${p.preco}</p>
+      </div>
+    `;
+
+        div.onclick = () => abrirModal(p);
+
+        lista.appendChild(div);
 
       });
 
@@ -1616,6 +1989,36 @@
       });
 
     }
+    document
+      .getElementById('imgPrincipal')
+      .addEventListener('click', () => {
+
+        document
+          .getElementById('zoomModal')
+          .style.display = 'flex';
+
+        document
+          .getElementById('zoomImg')
+          .src =
+          document
+            .getElementById('imgPrincipal')
+            .src;
+
+      });
+
+    document
+      .getElementById('zoomModal')
+      .addEventListener('click', () => {
+
+        document
+          .getElementById('zoomModal')
+          .style.display = 'none';
+
+      });
+
+
+
+
 
     window.voltarTopo = voltarTopo;
 
@@ -1623,7 +2026,23 @@
 
 
 
+
+
+
+
+
   </script>
+  <section class="avaliacoes">
+
+    <h2>
+      O que nossas clientes dizem 💖
+    </h2>
+
+    <div id="listaAvaliacoes">
+    </div>
+
+  </section>
+
   <!-- FOOTER -->
 
   <footer>

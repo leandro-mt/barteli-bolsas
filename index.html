@@ -1115,6 +1115,8 @@
     <h2>👜 Painel Barteli</h2>
 
     <input type="password" id="senhaAdmin" placeholder="Senha">
+    <label for="senhaAdmin">Senha</label>
+    <input type="password" id="senhaAdmin" placeholder="Senha">
 
     <button onclick="entrarAdmin()">
       Entrar
@@ -1327,9 +1329,9 @@ ${p.novo ? '<div class="badge">NOVO</div>' : ''}
 
   <h3>${p.nome}</h3>
 
-  <p class="price">
-    R$ ${Number(p.preco).toFixed(2)}
-  </p>
+ <p class="price">
+  ${p.preco}
+</p>
 
 </div>
 
@@ -1395,9 +1397,12 @@ ${p.novo ? '<div class="badge">NOVO</div>' : ''}
 
         querySnapshot.forEach(docItem => {
 
+          const dados = docItem.data();
+
+         
           produtos.push({
             id: docItem.id,
-            ...docItem.data()
+            ...dados
           });
 
         });
@@ -1416,6 +1421,7 @@ ${p.novo ? '<div class="badge">NOVO</div>' : ''}
 
       }
 
+
     }
 
     carregarProdutos();
@@ -1433,14 +1439,10 @@ ${p.novo ? '<div class="badge">NOVO</div>' : ''}
         .innerText = produtoAtual.nome;
 
       document.getElementById('preco')
-        .innerText = 'R$ ' +
-        Number(produtoAtual.preco)
-          .toLocaleString(
-            'pt-BR',
-            {
-              minimumFractionDigits: 2
-            }
-          );
+        .innerText =
+        produtoAtual.preco.toString().includes('R$')
+          ? produtoAtual.preco
+          : 'R$ ' + produtoAtual.preco;
 
       document.getElementById('descricao')
         .innerText = produtoAtual.descricao || '';
@@ -1812,17 +1814,17 @@ Gostaria de mais informações.`;
       }
 
       await updateDoc(
-
         doc(db, 'produtos', produto.id),
-
         {
-
           nome: novoNome,
-          preco: novoPreco,
+          preco: Number(
+            novoPreco
+              .replace('R$', '')
+              .replace(',', '.')
+              .trim()
+          ),
           descricao: novaDescricao
-
         }
-
       );
 
       carregarProdutos();

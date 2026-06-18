@@ -10,7 +10,7 @@
 
   <meta property="og:description" content="Elegância em cada detalhe">
 
-  <meta property="og:image" content="https://seudominio.com/logo.png">
+  <meta property="og:image" content="https://barteli-bolsas.vercel.app//logo.png">
   <meta property="og:type" content="website">
   <meta charset="UTF-8">
   <meta name="theme-color" content="#5a3e36">
@@ -90,6 +90,122 @@
       font-weight: bold;
 
       border: 1px solid #d8c3a5;
+
+    }
+
+    .item-carrinho {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 15px;
+
+      padding: 15px 0;
+
+      border-bottom: 1px solid #eee;
+
+    }
+
+    .item-carrinho img {
+
+      flex-shrink: 0;
+
+    }
+
+    .item-carrinho strong {
+
+      display: block;
+
+      margin-bottom: 5px;
+
+    }
+
+    .info-carrinho {
+
+      flex: 1;
+
+    }
+
+    #carrinhoModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, .6);
+      z-index: 999999;
+    }
+
+    .carrinho-content {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 380px;
+      max-width: 100%;
+      height: 100%;
+      background: white;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .carrinho-topo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .carrinho-topo span {
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .item-carrinho {
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .item-carrinho button {
+      background: red;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .carrinho-total {
+      margin-top: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #5a3e36;
+    }
+
+    #abrirCarrinho {
+
+      position: fixed;
+
+      top: 20px;
+      right: 20px;
+
+      background: #5a3e36;
+
+      color: white;
+
+      border: none;
+
+      padding: 12px 18px;
+
+      border-radius: 30px;
+
+      cursor: pointer;
+
+      z-index: 9999;
+
+      box-shadow: 0 5px 15px rgba(0, 0, 0, .2);
+
+      font-weight: bold;
 
     }
 
@@ -189,6 +305,7 @@
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
 
     }
+
 
     header h1 {
       font-size: 52px;
@@ -1193,8 +1310,12 @@
 
       <p id="descricao"></p>
 
-      <a href="#" class="btn" onclick="comprar()">
-        💬 Comprar pelo WhatsApp
+      <button class="btn" onclick="adicionarCarrinho()">
+        🛒 Adicionar ao Carrinho
+      </button>
+
+      <a class="btn" onclick="comprar()">
+        💬 Comprar Agora
       </a>
 
     </div>
@@ -1217,6 +1338,8 @@
 
     <h2>👜 Painel Barteli</h2>
 
+    <input type="email" id="emailAdmin" placeholder="Email">
+
     <input type="password" id="senhaAdmin" placeholder="Senha">
 
     <button onclick="entrarAdmin()">
@@ -1226,6 +1349,7 @@
     <button onclick="fecharPainel()">
       Fechar
     </button>
+
 
     <!-- CONTEÚDO ADMIN -->
 
@@ -1309,6 +1433,7 @@
   <script type="module">
 
     import { initializeApp }
+
       from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 
     import {
@@ -1318,9 +1443,16 @@
       getDocs,
       deleteDoc,
       doc,
-      updateDoc
+      updateDoc,
+
     }
       from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      signOut
+    }
+      from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
     import {
       getStorage,
@@ -1351,9 +1483,14 @@
     const db = getFirestore(app);
 
     const storage = getStorage(app);
+    const auth = getAuth(app);
 
     window.db = db;
     window.storage = storage;
+    window.auth = auth;
+    window.signInWithEmailAndPassword =
+      signInWithEmailAndPassword;
+    window.signOut = signOut;
 
     window.collection = collection;
     window.addDoc = addDoc;
@@ -1370,6 +1507,17 @@
   <!-- SCRIPT -->
 
   <script type="module">
+    const carrinhoSalvo =
+      localStorage.getItem('carrinho');
+
+    let carrinho = [];
+
+    if (carrinhoSalvo) {
+
+      carrinho =
+        JSON.parse(carrinhoSalvo);
+
+    }
 
     let produtos = [];
 
@@ -1447,6 +1595,221 @@ ${p.novo ? '<div class="badge">NOVO</div>' : ''}
 
       });
 
+
+    }
+    function adicionarCarrinho() {
+
+      const existente =
+        carrinho.find(
+          item => item.id === produtoAtual.id
+        );
+
+      if (existente) {
+
+        existente.quantidade++;
+
+      } else {
+
+        carrinho.push({
+          ...produtoAtual,
+          quantidade: 1
+        });
+
+      }
+
+      localStorage.setItem(
+        'carrinho',
+        JSON.stringify(carrinho)
+      );
+
+      atualizarCarrinho();
+
+    }
+    function atualizarCarrinho() {
+
+      const lista =
+        document.getElementById('itensCarrinho');
+
+      lista.innerHTML = '';
+
+      let total = 0;
+
+      carrinho.forEach((p, index) => {
+
+        const preco = parseFloat(
+          p.preco.toString()
+            .replace('R$', '')
+            .replace(',', '.')
+            .trim()
+        );
+
+        total += preco * (p.quantidade || 1);
+
+        lista.innerHTML += `
+
+<div class="item-carrinho">
+
+  <img
+    src="${p.imagens && p.imagens.length > 0 ? p.imagens[0] : 'logo.png'}"
+    width="80"
+    height="80"
+  >
+
+  <div class="info-carrinho">
+
+    <strong>${p.nome}</strong>
+
+    <p>
+R$ ${(preco * (p.quantidade || 1)).toFixed(2)}
+</p>
+
+    <div style="
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin-top:10px;
+    ">
+
+      <button onclick="diminuirQtd(${index})">
+        ➖
+      </button>
+
+      <span style="
+  min-width:35px;
+  text-align:center;
+  font-weight:700;
+  font-size:24px;
+  color:#5a3e36;
+  display:inline-block;
+">
+  ${p.quantidade || 1}
+</span>
+
+      <button onclick="aumentarQtd(${index})">
+        ➕
+      </button>
+
+      <button onclick="removerCarrinho(${index})">
+        🗑️
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+`;
+
+      });
+
+      document
+        .getElementById('contadorCarrinho')
+        .innerText =
+        carrinho.length;
+
+      document
+        .getElementById('valorTotal')
+        .innerText =
+        total.toFixed(2);
+
+    }
+    function removerCarrinho(index) {
+
+      carrinho.splice(index, 1);
+
+      localStorage.setItem(
+        'carrinho',
+        JSON.stringify(carrinho)
+      );
+
+      atualizarCarrinho();
+
+    }
+    function aumentarQtd(index) {
+
+      carrinho[index].quantidade++;
+
+      localStorage.setItem(
+        'carrinho',
+        JSON.stringify(carrinho)
+      );
+
+      atualizarCarrinho();
+
+    }
+
+    function diminuirQtd(index) {
+
+      if (carrinho[index].quantidade > 1) {
+
+        carrinho[index].quantidade--;
+
+      } else {
+
+        carrinho.splice(index, 1);
+
+      }
+
+      localStorage.setItem(
+        'carrinho',
+        JSON.stringify(carrinho)
+      );
+
+      atualizarCarrinho();
+
+    }
+
+
+    function fecharCarrinho() {
+
+      document
+        .getElementById('carrinhoModal')
+        .style.display = 'none';
+
+    }
+    function finalizarWhatsApp() {
+
+      let msg =
+        `Olá! 😊
+
+Gostaria de fazer um pedido:
+
+`;
+
+      let total = 0;
+
+      carrinho.forEach(p => {
+
+        msg += `
+👜 ${p.nome}
+📦 Quantidade: ${p.quantidade}
+💰 R$ ${p.preco}
+`;
+
+        const preco = parseFloat(
+          p.preco.toString()
+            .replace('R$', '')
+            .replace(',', '.')
+            .trim()
+        );
+
+        total += preco * p.quantidade;
+
+      });
+
+      msg +=
+        `Total: R$ ${total.toFixed(2)}`;
+
+      const url =
+        `https://wa.me/559492664045?text=${encodeURIComponent(msg)}`;
+
+      window.open(url, '_blank');
+      carrinho = [];
+
+      localStorage.removeItem('carrinho');
+
+      atualizarCarrinho();
 
     }
 
@@ -1660,24 +2023,51 @@ Gostaria de mais informações.`;
 
     }
 
-    function entrarAdmin() {
+
+    async function entrarAdmin() {
+
+      const email =
+        document.getElementById('emailAdmin')
+          .value;
 
       const senha =
         document.getElementById('senhaAdmin')
           .value;
 
-      if (senha === 'Barteli2026@') {
+      try {
 
-        document.getElementById('conteudoAdmin')
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          senha
+        );
+
+        document
+          .getElementById('conteudoAdmin')
           .style.display = 'block';
 
         atualizarListaAdmin();
 
-      } else {
-
-        alert('Senha incorreta');
+        alert('Login realizado');
 
       }
+
+      catch (error) {
+
+        alert(
+          'Email ou senha inválidos'
+        );
+
+        console.error(error);
+
+      }
+
+    }
+    function abrirCarrinho() {
+
+      document
+        .getElementById('carrinhoModal')
+        .style.display = 'block';
 
     }
 
@@ -1812,7 +2202,9 @@ Gostaria de mais informações.`;
           descricao: descricao,
           categoria: categoria,
           imagens: imagens,
-          cores: cores
+          cores: cores,
+          novo: novo,
+
 
         }
 
@@ -1961,6 +2353,16 @@ Gostaria de mais informações.`;
     window.removerProduto = removerProduto;
     window.fecharModal = fecharModal;
     window.comprar = comprar;
+    window.adicionarCarrinho = adicionarCarrinho;
+    window.removerCarrinho = removerCarrinho;
+    window.fecharCarrinho = fecharCarrinho;
+    window.finalizarWhatsApp = finalizarWhatsApp;
+    window.abrirCarrinho = abrirCarrinho;
+    window.voltarTopo = voltarTopo;
+    window.aumentarQtd = aumentarQtd;
+    window.diminuirQtd = diminuirQtd;
+
+    atualizarCarrinho();
 
     function filtrarCategoria(categoria, botao) {
 
@@ -2037,6 +2439,18 @@ Gostaria de mais informações.`;
         (p.categoria || '').toLowerCase().includes(termo)
 
       );
+      if (filtrados.length === 0) {
+        lista.innerHTML = `
+    <p style="
+      text-align:center;
+      color:#777;
+      padding:30px;
+    ">
+      Nenhum produto encontrado.
+    </p>
+  `;
+        return;
+      }
 
       filtrados.forEach(p => {
 
@@ -2044,11 +2458,38 @@ Gostaria de mais informações.`;
 
         div.className = 'card';
 
+        const imagemPrincipal =
+          p.imagens && p.imagens.length > 0
+            ? p.imagens[0]
+            : 'logo.png';
+
         div.innerHTML = `
-      <img src="${p.imagens[0]}">
+
+      ${p.novo ? '<div class="badge">NOVO</div>' : ''}
+
+      <img
+        src="${imagemPrincipal}"
+        loading="lazy"
+        decoding="async"
+      >
+
       <div class="card-content">
+
+        <div class="categoria">
+          ${p.categoria === 'Bolsa' ? '👜 Bolsa' :
+            p.categoria === 'Mochila' ? '🎒 Mochila' :
+              p.categoria === 'Necessaire' ? '👝 Nécessaire' :
+                p.categoria === 'Bolsa Maternidade' ? '👶 Maternidade' :
+                  p.categoria === 'Frasqueira' ? '🧳 Frasqueira' :
+                    '✨ Produto'}
+        </div>
+
         <h3>${p.nome}</h3>
-        <p class="price">R$ ${p.preco}</p>
+
+        <p class="price">
+          R$ ${Number(p.preco).toFixed(2)}
+        </p>
+
       </div>
     `;
 
@@ -2185,6 +2626,41 @@ Gostaria de mais informações.`;
 
   <button id="topoBtn" onclick="voltarTopo()">
     ↑
+  </button>
+
+  <div id="carrinhoModal">
+
+    <div class="carrinho-content">
+
+      <div class="carrinho-topo">
+
+        <h2>🛒 Meu Carrinho</h2>
+
+        <span onclick="fecharCarrinho()">✕</span>
+
+      </div>
+
+      <div id="itensCarrinho"></div>
+
+      <div class="carrinho-total">
+
+        Total: R$
+        <span id="valorTotal">0</span>
+
+      </div>
+
+      <button onclick="finalizarWhatsApp()" class="btn">
+
+        Finalizar pelo WhatsApp
+
+      </button>
+
+    </div>
+
+  </div>
+  <button id="abrirCarrinho" onclick="abrirCarrinho()">
+    🛒 <span id="contadorCarrinho">0</span>
+
   </button>
 
 </body>
